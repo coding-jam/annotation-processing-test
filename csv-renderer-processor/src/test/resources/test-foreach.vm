@@ -1,0 +1,3 @@
+#foreach($name in $names)
+Hello $name
+#end
