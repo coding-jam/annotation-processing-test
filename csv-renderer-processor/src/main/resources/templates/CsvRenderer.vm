@@ -13,6 +13,9 @@ public class ${modelClass}CsvRenderer implements RowRenderer<$modelClass> {
         StringBuilder sb = new StringBuilder(100);
     #foreach($method in $methods)
     sb.append(model.${method.name}());
+    #if ($foreach.hasNext)
+    sb.append(",");
+    #end
     #end
 
         return sb;

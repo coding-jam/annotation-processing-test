@@ -19,13 +19,14 @@ public abstract class CsvSerializer<T> {
     }
 
     public void serializeTo(List<T> rows, OutputStream out) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new PrintWriter(out));
-        Iterator<T> iterator = rows.iterator();
-        while (iterator.hasNext()) {
-            StringBuilder rowSb = renderer.doRender(iterator.next());
-            writer.write(rowSb.toString());
-            if (iterator.hasNext()) {
-                writer.newLine();
+        try(BufferedWriter writer = new BufferedWriter(new PrintWriter(out))) {
+            Iterator<T> iterator = rows.iterator();
+            while (iterator.hasNext()) {
+                StringBuilder rowSb = renderer.doRender(iterator.next());
+                writer.write(rowSb.toString());
+                if (iterator.hasNext()) {
+                    writer.newLine();
+                }
             }
         }
     }
