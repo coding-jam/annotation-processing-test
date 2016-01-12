@@ -16,7 +16,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 /**
  * Annotation processor for {@link CsvRendered}
