@@ -68,8 +68,11 @@ public class DomainModelCsvRenderer implements RowRenderer<DomainModel> {
 
         StringBuilder sb = new StringBuilder(100);
         sb.append(model.getValue3());
+        sb.append(",");
         sb.append(model.getValue2());
+        sb.append(",");
         sb.append(model.getValue4());
+        sb.append(",");
         sb.append(model.getValue1());
     
         return sb;
