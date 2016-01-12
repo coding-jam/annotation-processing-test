@@ -14,35 +14,26 @@ import java.util.List;
 import static java.util.stream.Collectors.toCollection;
 
 /**
+ * Generates CsvRenderer class for rendering in csv a single row
+ *
  * Created by acomo on 10/01/16.
  */
-class CsvRendererGeneratorHelper {
+class CsvRendererGeneratorHelper extends AbstractGeneratorHelper {
 
     private static final String TEMPLATE = "templates/CsvRenderer.vm";
 
-    private static final String PACKAGE = "package";
-
-    private static final String MODEL_CLASS = "modelClass";
-
     private static final String METHODS = "methods";
-
-    private CsvRendererGeneratorHelper() {}
 
     public static Builder newRenderer(ProcessingEnvironment processingEnv, TypeElement classElement) {
         return new Builder(processingEnv, classElement);
     }
 
-    public static class Builder {
+    public static class Builder extends AbstractGeneratorHelper.Builder {
 
         private final List<CsvMethod> csvMethods;
 
-        private final String packageName;
-
-        private final String className;
-
         public Builder(ProcessingEnvironment processingEnv, TypeElement classElement) {
-            this.packageName = classElement.getEnclosingElement().toString();
-            this.className = classElement.getSimpleName().toString();
+            super(classElement);
             this.csvMethods = getMethodsSortedByPosition(processingEnv, classElement);
         }
 

@@ -75,6 +75,13 @@ public class DomainModelCsvRenderer implements RowRenderer<DomainModel> {
         return sb;
     }
 }
+
+public class DomainModelCsvSerializer extends CsvSerializer<DomainModel> {
+
+    public DomainModelCsvSerializer() {
+        super(new DomainModelCsvRenderer());
+    }
+}
 ```
 
 ## Project Details ##
