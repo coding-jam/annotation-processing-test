@@ -16,7 +16,7 @@
             <groupId>it.cosenonjaviste</groupId>
             <artifactId>csv-renderer-processor</artifactId>
             <version>${project.version}</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>it.cosenonjaviste</groupId>
