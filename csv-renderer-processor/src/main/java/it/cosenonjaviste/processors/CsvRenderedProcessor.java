@@ -7,7 +7,6 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
@@ -26,26 +25,29 @@ import java.util.function.Consumer;
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class CsvRenderedProcessor extends AbstractProcessor {
 
-
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Annotation processing: " + roundEnv);
 
-        Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(CsvRendered.class);
+        annotations.stream()
+                .map(element -> roundEnv.getElementsAnnotatedWith(element))
+                .forEach(elements -> elements.stream()
+                        .filter(element -> element.getKind() == ElementKind.CLASS)
+                        .forEach(element -> {
+                            TypeElement classElement = (TypeElement) element;
 
+                            generateJavaSources(classElement);
+                        }));
 
-        elements.stream()
-                .filter(element -> element.getKind() == ElementKind.CLASS)
-                .forEach(element -> {
-                    TypeElement classElement = (TypeElement) element;
-
-                    String csvRendererSourceName = classElement.getQualifiedName() + "CsvRenderer";
-                    createSourceFile(classElement, csvRendererSourceName, writer -> CsvRendererGeneratorHelper.newRenderer(processingEnv, classElement).generate(writer));
-
-                    String csvSerializerSourceName = classElement.getQualifiedName() + "CsvSerializer";
-                    createSourceFile(classElement, csvSerializerSourceName, writer -> CsvSerializerGeneratorHelper.newRenderer(classElement).generate(writer));
-                });
         return true;
+    }
+
+    private void generateJavaSources(TypeElement classElement) {
+        String csvRendererSourceName = classElement.getQualifiedName() + "CsvRenderer";
+        createSourceFile(classElement, csvRendererSourceName, writer -> CsvRendererGeneratorHelper.newRenderer(processingEnv, classElement).generate(writer));
+
+        String csvSerializerSourceName = classElement.getQualifiedName() + "CsvSerializer";
+        createSourceFile(classElement, csvSerializerSourceName, writer -> CsvSerializerGeneratorHelper.newRenderer(classElement).generate(writer));
     }
 
     private void createSourceFile(TypeElement element, String sourceFileName, Consumer<Writer> generator) {
