@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
  * Created by acomo on 09/01/16.
  */
 @Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 public @interface CsvPosition {
 
     int value();

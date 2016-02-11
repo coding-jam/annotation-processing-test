@@ -20,6 +20,9 @@ public class DomainModel {
 
     private float value4;
 
+//    @CsvPosition(1)
+//    public void myMethod() {}
+
     @CsvPosition(3)
     public String getValue1() {
         return value1;

@@ -1,1 +1,2 @@
 it.cosenonjaviste.processors.CsvRenderedProcessor
+it.cosenonjaviste.processors.CsvPositionValidatorProcessor

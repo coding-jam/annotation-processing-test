@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
  * Created by acomo on 09/01/16.
  */
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 public @interface CsvRendered {
 }
