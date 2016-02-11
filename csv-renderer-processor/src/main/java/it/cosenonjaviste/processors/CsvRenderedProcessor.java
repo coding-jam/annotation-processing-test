@@ -7,6 +7,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Annotation processor for {@link CsvRendered}
@@ -30,7 +32,7 @@ public class CsvRenderedProcessor extends AbstractProcessor {
         processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Annotation processing: " + roundEnv);
 
         annotations.stream()
-                .map(element -> roundEnv.getElementsAnnotatedWith(element))
+                .map(roundEnv::getElementsAnnotatedWith)
                 .forEach(elements -> elements.stream()
                         .filter(element -> element.getKind() == ElementKind.CLASS)
                         .forEach(element -> {
