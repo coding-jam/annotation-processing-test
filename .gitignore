@@ -2,3 +2,9 @@
 /**/target
 .idea
 *.iml
+/.settings
+/**/.settings
+/**/.apt_generated
+/.project
+/**/.project
+/**/.classpath
