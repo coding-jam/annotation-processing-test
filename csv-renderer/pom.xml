@@ -30,4 +30,36 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <generatedSourcesDirectory>src/generated/java</generatedSourcesDirectory>
+                    <annotationProcessors>
+                        <annotationProcessor>
+                            it.cosenonjaviste.processors.CsvRenderedProcessor
+                        </annotationProcessor>
+                        <annotationProcessor>
+                            it.cosenonjaviste.processors.CsvPositionValidatorProcessor
+                        </annotationProcessor>
+                    </annotationProcessors>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>src/generated</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
