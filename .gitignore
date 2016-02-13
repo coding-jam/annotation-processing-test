@@ -3,3 +3,9 @@
 .idea
 *.iml
 /**/src/generated
+/.settings
+/**/.settings
+/**/.apt_generated
+/.project
+/**/.project
+/**/.classpath
